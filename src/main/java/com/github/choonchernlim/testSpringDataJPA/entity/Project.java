@@ -1,23 +1,18 @@
 package com.github.choonchernlim.testSpringDataJPA.entity;
 
 import com.google.common.base.Objects;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import java.util.Collection;
-import java.util.HashSet;
 
 @Entity
 @Table(name = "project")
-public final class ProjectEntity {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +23,19 @@ public final class ProjectEntity {
     private String name;
 
     @Column
-    private LocalDateTime created;
+    private Integer totalUsers;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("name asc")
-    private Collection<UserEntity> users = new HashSet<UserEntity>();
+    @Column
+    private LocalDate created;
+
+    private Project() {
+    }
+
+    public Project(final String name, final Integer totalUsers, final LocalDate created) {
+        this.name = name;
+        this.totalUsers = totalUsers;
+        this.created = created;
+    }
 
     @Override
     public boolean equals(final Object o) {
@@ -40,7 +43,7 @@ public final class ProjectEntity {
             return false;
         }
 
-        final ProjectEntity other = (ProjectEntity) o;
+        final Project other = (Project) o;
 
         return Objects.equal(getName(), other.getName());
     }
@@ -62,19 +65,19 @@ public final class ProjectEntity {
         this.name = name;
     }
 
-    public LocalDateTime getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(final LocalDateTime created) {
+    public void setCreated(final LocalDate created) {
         this.created = created;
     }
 
-    public Collection<UserEntity> getUsers() {
-        return users;
+    public Integer getTotalUsers() {
+        return totalUsers;
     }
 
-    public void setUsers(final Collection<UserEntity> users) {
-        this.users = users;
+    public void setTotalUsers(final Integer totalUsers) {
+        this.totalUsers = totalUsers;
     }
 }

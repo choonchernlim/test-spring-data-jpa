@@ -8,6 +8,8 @@
     <context:component-scan base-package="com.github.choonchernlim.testSpringDataJPA">
         <context:exclude-filter type="regex"
                                 expression="com.github.choonchernlim.testSpringDataJPA.example.hibernate..*"/>
+        <context:exclude-filter type="regex"
+                                expression="com.github.choonchernlim.testSpringDataJPA.example.datajpa..*"/>
     </context:component-scan>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
@@ -30,7 +32,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
                 <prop key="hibernate.default_schema">dbo</prop>
                 <prop key="jadira.usertype.autoRegisterUserTypes">true</prop>
             </props>

@@ -1,7 +1,7 @@
 package com.github.choonchernlim.testSpringDataJPA.example.hibernate;
 
-import com.github.choonchernlim.testSpringDataJPA.entity.ProjectEntity;
-import org.joda.time.LocalDateTime;
+import com.github.choonchernlim.testSpringDataJPA.entity.Project;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +29,22 @@ public class Main {
     }
 
     public void run() {
-        final String projectName = "TEST" + LocalDateTime.now();
+        final String projectName = "Project X";
 
-        LOGGER.debug("project name: " + projectName);
+        LOGGER.debug("Project name: {}", projectName);
 
-        final ProjectEntity project = new ProjectEntity();
-        project.setName(projectName);
-        project.setCreated(LocalDateTime.now());
+        final Project newProject = new Project(projectName, 10, LocalDate.now());
 
-        dao.newProject(project);
+        dao.newProject(newProject);
 
-        final ProjectEntity aProject = dao.getProjectByName(projectName);
+        final Project existingProject = dao.getProjectByName(projectName);
 
-        LOGGER.debug(aProject.getName() + " " + aProject.getCreated());
+        LOGGER.debug("{}, created on {}, with {} users",
+                     existingProject.getName(),
+                     existingProject.getCreated(),
+                     existingProject.getTotalUsers());
 
-        dao.deleteProject(aProject);
+        dao.deleteProject(existingProject);
 
     }
 }
