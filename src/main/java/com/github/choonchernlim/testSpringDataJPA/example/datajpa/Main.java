@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,6 +77,19 @@ public class Main {
 
         for (Project p : projectDao.findByNameEndingWithIgnoreCase("N")) {
             LOGGER.debug("findByNameEndingWithIgnoreCase:  " + p.getName());
+        }
+
+        for (Project p : projectDao.findByTotalUsersOrderByNameAsc(10)) {
+            LOGGER.debug("findByTotalUsersOrderByNameAsc:  " + p.getName());
+        }
+
+
+        for (Project p : projectDao.findByTotalUsers(10, new Sort(Sort.Direction.ASC, "name"))) {
+            LOGGER.debug("findByTotalUsers with sort:  " + p.getName());
+        }
+
+        for (Project p : projectDao.findAll(new PageRequest(3, 1))) {
+            LOGGER.debug("findAll with pageable:  " + p.getName());
         }
 
         projectDao.delete(existingProject1);

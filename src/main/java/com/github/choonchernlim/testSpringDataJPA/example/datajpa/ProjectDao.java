@@ -2,6 +2,7 @@ package com.github.choonchernlim.testSpringDataJPA.example.datajpa;
 
 import com.github.choonchernlim.testSpringDataJPA.entity.Project;
 import org.joda.time.LocalDate;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +29,6 @@ public interface ProjectDao extends JpaRepository<Project, Long>, ProjectDaoCust
     List<Project> findByNameStartingWith(String start);
 
     List<Project> findByNameEndingWithIgnoreCase(String end);
+
+    List<Project> findByTotalUsers(Integer age, Sort sort);
 }
